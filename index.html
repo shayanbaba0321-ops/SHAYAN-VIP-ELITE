@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080808" />
+  <title>VIP ELITE — Premium Membership</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg: #060606;
+      --card: #101010;
+      --gold: #f5c542;
+      --gold2: #ffdf70;
+      --text: #fff;
+      --muted: #aaa;
+      --border: rgba(245, 197, 66, .25);
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(245,197,66,.12), transparent 25%),
+        radial-gradient(circle at 90% 30%, rgba(255,120,0,.08), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1150px, 92%);
+      margin: auto;
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(5,5,5,.82);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--gold);
+    }
+
+    .logo span {
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #ddd;
+      font-size: 14px;
+      transition: .3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: 0;
+      color: white;
+      font-size: 27px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      background: var(--gold);
+      filter: blur(180px);
+      opacity: .08;
+      border-radius: 50%;
+      top: 10%;
+      left: -150px;
+    }
+
+    .hero-content {
+      max-width: 760px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 15px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--gold2);
+      background: rgba(245,197,66,.07);
+      margin-bottom: 22px;
+      font-size: 13px;
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 92px);
+      line-height: .95;
+      letter-spacing: -4px;
+    }
+
+    h1 span {
+      color: var(--gold);
+      text-shadow: 0 0 30px rgba(245,197,66,.25);
+    }
+
+    .hero p {
+      max-width: 620px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin: 25px 0 35px;
+      font-size: 17px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      padding: 14px 23px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: .3s;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), #b88700);
+      color: #090909;
+      box-shadow: 0 10px 35px rgba(245,197,66,.18);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(245,197,66,.3);
+    }
+
+    .btn-dark {
+      background: rgba(255,255,255,.03);
+      color: white;
+    }
+
+    .btn-dark:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .section-title small {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    .section-title h2 {
+      font-size: 42px;
+      margin-top: 10px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    /* FEATURES */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature {
+      background: linear-gradient(145deg, #111, #090909);
+      border: 1px solid var(--border);
+      padding: 30px;
+      border-radius: 18px;
+      transition: .3s;
+    }
+
+    .feature:hover {
+      transform: translateY(-8px);
+      border-color: rgba(245,197,66,.65);
+    }
+
+    .feature-icon {
+      font-size: 35px;
+      margin-bottom: 18px;
+    }
+
+    .feature h3 {
+      margin-bottom: 12px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* PRICING */
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .price-card {
+      background: #0d0d0d;
+      border: 1px solid #222;
+      border-radius: 20px;
+      padding: 35px;
+      position: relative;
+    }
+
+    .price-card.popular {
+      border: 1px solid var(--gold);
+      box-shadow: 0 0 45px rgba(245,197,66,.08);
+      transform: scale(1.03);
+    }
+
+    .popular-label {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: #111;
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .price-card h3 {
+      font-size: 22px;
+    }
+
+    .price {
+      font-size: 43px;
+      font-weight: 900;
+      color: var(--gold);
+      margin: 20px 0;
+    }
+
+    .price span {
+      color: #888;
+      font-size: 14px;
+      font-weight: normal;
+    }
+
+    .price-card ul {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+
+    .price-card li {
+      color: #bbb;
+      padding: 9px 0;
+      border-bottom: 1px solid #1b1b1b;
+    }
+
+    .price-card li::before {
+      content: "✓";
+      color: var(--gold);
+      margin-right: 10px;
+    }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 30px 15px;
+      border: 1px solid #1c1c1c;
+      background: #0c0c0c;
+      border-radius: 15px;
+    }
+
+    .stat strong {
+      color: var(--gold);
+      font-size: 38px;
+      display: block;
+    }
+
+    .stat span {
+      color: #999;
+      font-size: 13px;
+    }
+
+    /* LOGIN MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,.8);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-box {
+      width: min(430px, 100%);
+      background: #101010;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 35px;
+      position: relative;
+      box-shadow: 0 25px 80px rgba(0,0,0,.6);
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 18px;
+      background: none;
+      color: #aaa;
+      border: 0;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    .modal-box h2 {
+      margin-bottom: 8px;
+    }
+
+    .modal-box > p {
+      color: #888;
+      margin-bottom: 25px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 14px;
+      background: #080808;
+      border: 1px solid #292929;
+      border-radius: 9px;
+      color: white;
+      outline: none;
+    }
+
+    .input:focus {
+      border-color: var(--gold);
+    }
+
+    .full {
+      width: 100%;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid #1d1d1d;
+      padding: 35px 0;
+      color: #777;
+      text-align: center;
+    }
+
+    footer strong {
+      color: var(--gold);
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: #151515;
+      border: 1px solid var(--gold);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: .35s;
+      z-index: 3000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 800px) {
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        flex-direction: column;
+        background: #090909;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .features,
+      .pricing {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card.popular {
+        transform: none;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .buttons .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="#home" class="logo">VIP<span>ELITE</span></a>
+
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" onclick="closeMenu()">Home</a></li>
+        <li><a href="#features" onclick="closeMenu()">Features</a></li>
+        <li><a href="#plans" onclick="closeMenu()">Plans</a></li>
+        <li><a href="#about" onclick="closeMenu()">About</a></li>
+        <li><a href="#" onclick="openLogin(); return false;">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <main id="home">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+
+          <div class="badge">✦ PREMIUM MEMBERSHIP EXPERIENCE</div>
+
+          <h1>
+            ENTER THE<br />
+            <span>VIP WORLD.</span>
+          </h1>
+
+          <p>
+            A premium digital experience designed for members who expect
+            exclusive access, powerful features and a luxury interface.
+          </p>
+
+          <div class="buttons">
+            <a href="#plans" class="btn btn-primary">Become VIP →</a>
+            <button class="btn btn-dark" onclick="openLogin()">Member Login</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features">
+      <div class="container">
+
+        <div class="section-title">
+          <small>Why VIP?</small>
+          <h2>Premium Features</h2>
+          <p>Everything you need in one exclusive platform.</p>
+        </div>
+
+        <div class="features">
+
+          <div class="feature">
+            <div class="feature-icon">👑</div>
+            <h3>VIP Access</h3>
+            <p>
+              Give members access to exclusive content, premium areas and
+              member-only experiences.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">⚡</div>
+            <h3>Fast Experience</h3>
+            <p>
+              Modern lightweight interface with responsive layouts and
+              smooth interactions.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">🔐</div>
+            <h3>Secure Account</h3>
+            <p>
+              Clean login interface ready to connect with a real
+              authentication backend.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section>
+      <div class="container">
+
+        <div class="stats">
+          <div class="stat">
+            <strong>10K+</strong>
+            <span>Members</span>
+          </div>
+
+          <div class="stat">
+            <strong>99%</strong>
+            <span>Uptime</span>
+          </div>
+
+          <div class="stat">
+            <strong>24/7</strong>
+            <span>Support</span>
+          </div>
+
+          <div class="stat">
+            <strong>100%</strong>
+            <span>Premium UI</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PLANS -->
+    <section id="plans">
+      <div class="container">
+
+        <div class="section-title">
+          <small>Membership</small>
+          <h2>Choose Your Plan</h2>
+          <p>Select the membership that fits your needs.</p>
+        </div>
+
+        <div class="pricing">
+
+          <div class="price-card">
+            <h3>Basic</h3>
+            <div class="price">$9 <span>/ month</span></div>
+
+            <ul>
+              <li>Member Dashboard</li>
+              <li>Basic Content</li>
+              <li>Email Support</li>
+              <li>Member Profile</li>
+            </ul>
+
+            <button class="btn btn-dark full"
+              onclick="selectPlan('Basic')">
+              Select Plan
+            </button>
+          </div>
+
+          <div class="price-card popular">
+            <div class="popular-label">MOST POPULAR</div>
+
+            <h3>VIP Gold</h3>
+            <div class="price">$29 <span>/ month</span></div>
+
+            <ul>
+              <li>Everything in Basic</li>
+              <li>VIP Exclusive Content</li>
+              <li>Priority Support</li>
+              <li>Premium Dashboard</li>
+            </ul>
+
+            <button class="btn btn-primary full"
+              onclick="selectPlan('VIP Gold')">
+              Become VIP
+            </button>
+          </div>
+
+          <div class="price-card">
+            <h3>Elite</h3>
+            <div class="price">$59 <span>/ month</span></div>
+
+            <ul>
+              <li>Everything in Gold</li>
+              <li>Elite Content</li>
+              <li>Dedicated Support</li>
+              <li>Advanced Access</li>
+            </ul>
+
+            <button class="btn btn-dark full"
+              onclick="selectPlan('Elite')">
+              Select Plan
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+
+        <div class="section-title">
+          <small>About</small>
+          <h2>Built For Premium Experiences</h2>
+          <p>
+            This frontend is ready to be connected to your own backend,
+            database, authentication and payment provider.
+          </p>
+        </div>
+
+        <div class="feature" style="max-width:800px;margin:auto;text-align:center;">
+          <h3 style="color:var(--gold);font-size:25px;margin-bottom:15px;">
+            Your Brand. Your Rules.
+          </h3>
+
+          <p>
+            Replace the demo content, prices and branding with your own
+            business information. The interface works on desktop,
+            tablet and mobile screens.
+          </p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- LOGIN MODAL -->
+  <div class="modal" id="loginModal">
+    <div class="modal-box">
+
+      <button class="close" onclick="closeLogin()">×</button>
+
+      <h2>Member Login</h2>
+      <p>Access your VIP account.</p>
+
+      <form onsubmit="login(event)">
+        <input
+          class="input"
+          type="email"
+          id="email"
+          placeholder="Email address"
+          required
+        />
+
+        <input
+          class="input"
+          type="password"
+          id="password"
+          placeholder="Password"
+          required
+        />
+
+        <button class="btn btn-primary full" type="submit">
+          Login
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      © 2026 <strong>VIP ELITE</strong> — Premium Membership Platform
+    </div>
+  </footer>
+
+  <script>
+    const modal = document.getElementById("loginModal");
+    const toast = document.getElementById("toast");
+    const navLinks = document.getElementById("navLinks");
+
+    function toggleMenu() {
+      navLinks.classList.toggle("open");
+    }
+
+    function closeMenu() {
+      navLinks.classList.remove("open");
+    }
+
+    function openLogin() {
+      modal.classList.add("active");
+      closeMenu();
+    }
+
+    function closeLogin() {
+      modal.classList.remove("active");
+    }
+
+    modal.addEventListener("click", function(e) {
+      if (e.target === modal) {
+        closeLogin();
+      }
+    });
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
+    }
+
+    function login(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value;
+
+      closeLogin();
+
+      showToast("Demo login successful for " + email);
+    }
+
+    function selectPlan(plan) {
+      showToast(plan + " selected — connect your payment system here.");
+    }
+
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") {
+        closeLogin();
+      }
+    });
+  </script>
+
+</body>
+</html>
